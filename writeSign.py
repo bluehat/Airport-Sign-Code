@@ -45,7 +45,7 @@ with tweetstream.TrackStream("dojosign", "dojo77", words) as stream:
         if p:
           formTweet(40, p)
         if pp:
-          formSign(73, pp)
+          formTweet(73, pp)
         if p:
           pp = p
         p = tweet
