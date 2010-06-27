@@ -20,8 +20,11 @@ def tosign(id,u,s):
 	time.sleep(1)
 	signfile.write("\x0C")
 
+def formSign(sign, tweet):
+  tosign(sign, '@'+tweet['user']['screen_name'].upper(), tweet['text'])
+
 signfile = serial.Serial('/dev/ttyUSB0',baudrate=9600)
-tosign(30,"","Hello world I am testing some shit")
+tosign(30,"","Please tweet at me!")
 tosign(40,"","")
 tosign(73,"","")
 words = ["oil","dojosign","hackerdojo","hacker dojo","#dojosign"]
@@ -32,12 +35,12 @@ with tweetstream.TrackStream("dojosign", "dojo77", words) as stream:
     if type(tweet['text']) is str:
       print tweet['user']['screen_name']+": "+tweet['text'] 
       print "\n"
-      if "dojo" in tweet['text']:
-        tosign(30,"@"+tweet['user']['screen_name'].upper(),tweet['text'])
+      if "oil" in tweet['text']:
+        formSign(30, tweet)
         if p:
-          tosign(40,"@"+p['user']['screen_name'].upper(),p['text'])
+          formSign(40, p)
         if pp:
-          tosign(73,"@"+pp['user']['screen_name'].upper(),pp['text'])
+          formSign(73, pp)
         if p:
           pp = p
         p = tweet
