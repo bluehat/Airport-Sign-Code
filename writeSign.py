@@ -22,9 +22,6 @@ def tosign(id, top_style, top_note, bottom_style, bottom_note):
 	signfile.write("  ")
 	signfile.write("<ID"+str(id)+"><RPZ>")
 	signfile.write("\x0D\x0A")
-	signfile.write("  <ID00><L1>")
-	signfile.write("\x0D\x0A")
-	signfile.write("  <ID00><RPZ>")
 	time.sleep(1)
 	signfile.write("\x0C")
 
