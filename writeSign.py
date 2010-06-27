@@ -10,14 +10,14 @@ styles = {
 	"scroll_always" : "<FH>",
 }
 
-def tosign(id, topStyle, u, bottomStyle, s):
+def tosign(id, top_style, top_note, bottom_style, bottom_note):
 	signfile.write("\x0D\x0A\x0A")
 	signfile.write("  <ID"+str(id)+"><PZ>")
-	signfile.write(styles.get(topStyle))
+	signfile.write(styles.get(top_style))
 	signfile.write("<L1>")
-	signfile.write(u)
-	signfile.write("<L2>"+s)
-	signfile.write(styles.get(bottomStyle))
+	signfile.write(top_note)
+	signfile.write("<L2>"+bottom_note)
+	signfile.write(styles.get(bottom_style))
 	signfile.write("\x0D\x0A")
 	signfile.write("  ")
 	signfile.write("<ID"+str(id)+"><RPZ>")
@@ -28,7 +28,7 @@ def tosign(id, topStyle, u, bottomStyle, s):
 	time.sleep(1)
 	signfile.write("\x0C")
 
-def formSign(sign, tweet):
+def formTweet(sign, tweet):
   tosign(sign, "center", '@'+tweet['user']['screen_name'].upper(), "scroll_always", tweet['text'])
 
 signfile = serial.Serial('/dev/ttyUSB0',baudrate=9600)
@@ -44,9 +44,9 @@ with tweetstream.TrackStream("dojosign", "dojo77", words) as stream:
       print tweet['user']['screen_name']+": "+tweet['text'] 
       print "\n"
       if "oil" in tweet['text']:
-        formSign(30, tweet)
+        formTweet(30, tweet)
         if p:
-          formSign(40, p)
+          formTweet(40, p)
         if pp:
           formSign(73, pp)
         if p:
